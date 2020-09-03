@@ -9,8 +9,7 @@ import (
 
 // GET /users
 // Find all users
-
-func findUsers(c *gin.Context) {
+func FindUsers(c *gin.Context) {
 	var users []models.User
 	models.DB.Find(&users)
 
