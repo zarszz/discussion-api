@@ -24,7 +24,7 @@ func getDotEnv(key string) string {
 	err := godotenv.Load(".env")
 	if err != nil {
 		fmt.Println("Error : ", err.Error())
-		return
+		return ""
 	}
 	return os.Getenv(key)
 }
