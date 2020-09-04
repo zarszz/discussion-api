@@ -8,4 +8,5 @@ type Comment struct {
 	gorm.Model
 	ParentInt int64
 	Content   string
+	User      User
 }

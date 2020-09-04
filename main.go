@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/zarszz/discussion-api/controller"
 )
 
 func main() {
@@ -11,5 +12,6 @@ func main() {
 			"message": "pong",
 		})
 	})
+	r.GET("/users", controller.FindUsers)
 	r.Run()
 }

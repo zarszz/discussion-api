@@ -9,4 +9,6 @@ type User struct {
 	FirstName    string
 	LastName     string
 	PhotoProfile string
+	Discussions  []Discussion
+	Comment      []Comment
 }

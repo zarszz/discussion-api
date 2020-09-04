@@ -4,8 +4,9 @@ import (
 	"gorm.io/gorm"
 )
 
-type Discussions struct {
+type Discussion struct {
 	gorm.Model
 	Title   string
 	Content string
+	User    User
 }
