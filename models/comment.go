@@ -6,7 +6,8 @@ import (
 
 type Comment struct {
 	gorm.Model
-	ParentInt int64
-	Content   string
-	User      User
+	ParentID     uint `gorm:"index"`
+	Content      string
+	DiscussionID uint
+	UserID       uint
 }

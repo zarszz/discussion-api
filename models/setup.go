@@ -2,6 +2,7 @@ package models
 
 import (
 	"fmt"
+	"log"
 	"os"
 
 	"github.com/joho/godotenv"
@@ -11,8 +12,9 @@ import (
 
 var DB *gorm.DB
 
-func connectDatabase() {
-	dsn := getDotEnv("CONNECTION_STRING")
+// ConnectDatabase - connect and create migration
+func ConnectDatabase() {
+	dsn := GoDotEnvVariable("CONN_STRING")
 	database, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		fmt.Println("Error : ", err.Error())
@@ -20,14 +22,20 @@ func connectDatabase() {
 	database.AutoMigrate(&User{})
 	database.AutoMigrate(&Comment{})
 	database.AutoMigrate(&Discussion{})
+	database.AutoMigrate(&Category{})
 	DB = database
 }
 
-func getDotEnv(key string) string {
+// use godot package to load/read the .env file and
+// return the value of the key
+func GoDotEnvVariable(key string) string {
+
+	// load .env file
 	err := godotenv.Load(".env")
+
 	if err != nil {
-		fmt.Println("Error : ", err.Error())
-		return ""
+		log.Fatalf("Error loading .env file")
 	}
+
 	return os.Getenv(key)
 }
