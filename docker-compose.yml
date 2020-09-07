@@ -1,0 +1,7 @@
+version: '2.0'
+services:
+  discussion-api:    
+    build: .
+    container_name: 'discussion_api'
+    ports:
+      - '8080:8080'
