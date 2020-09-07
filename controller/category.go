@@ -34,9 +34,7 @@ func FindCategory(c *gin.Context) {
 	var category models.Category
 	id := c.Param("id")
 
-	// err := models.DB.Joins("Comment").First(&discussion, "discussions.id = ?", id).Error
 	err := models.DB.Where("categories.id = ?", id).Find(&category).Error
-	// err := models.DB.Where("id = ?", id).Preload("Comment").Find(&discussion).Error
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			c.JSON(http.StatusNotFound, gin.H{"error": "not found"})

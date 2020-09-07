@@ -55,9 +55,7 @@ func InsertDiscussion(c *gin.Context) {
 // Find all discussions
 func FindDiscussions(c *gin.Context) {
 	var discussions []models.Discussion
-	// err := models.DB.Find(&discussions).Error
-	// err := models.DB.Joins("User").Joins("Comment").Find(&discussions).Error
-	// err := models.DB.Preload("Comment").Preload("User").Find(&discussions).Error
+
 	err := models.DB.Preload(clause.Associations).Find(&discussions).Error
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -73,9 +71,7 @@ func FindDiscussion(c *gin.Context) {
 	var discussion models.Discussion
 	id := c.Param("id")
 
-	// err := models.DB.Joins("Comment").First(&discussion, "discussions.id = ?", id).Error
 	err := models.DB.Preload(clause.Associations).Where("discussions.id = ?", id).Find(&discussion).Error
-	// err := models.DB.Where("id = ?", id).Preload("Comment").Find(&discussion).Error
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			c.JSON(http.StatusNotFound, gin.H{"error": "not found"})

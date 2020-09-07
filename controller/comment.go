@@ -56,7 +56,7 @@ func InsertComment(c *gin.Context) {
 func FindComments(c *gin.Context) {
 	var comments []models.Comment
 	models.DB.Find(&comments)
-	// err := models.DB.Joins("User").Find(&comments).Error
+
 	err := models.DB.Preload(clause.Associations).Find(&comments).Error
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
